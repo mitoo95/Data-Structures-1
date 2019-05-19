@@ -5,23 +5,29 @@
 
 using namespace std;
 
-class mangoTree{
+class mangoTree
+{
 
-	public:
-		mangoTree();
-		int addMangoFruit(mangoFruit *);
-		int insertMangoFruit(mangoFruit *, int);
-		int deleteMangoFruit(int);
-		void printMangoWeight();
-		int getMangoCounter();
-		mangoFruit *head;
-		mangoFruit *tail;
+private:
+	int counter;
+	void increaseCounter();
+	void decreaseCounter();
+
+public:
+	mangoFruit *head;
+	mangoFruit *tail;
+	mangoTree();
+	virtual ~mangoTree();
+	int addMango(mangoFruit *mango);
+	int insertMango(mangoFruit *mango, int pos);
+	int deleteMango(int pos);
+	int getCounter();
+	void printMangoTree();
+	double getTotalWeight();
+	int getFruitQuantity();
+	bool fruitMaxCapacityExceeded();
+	bool treeMaxWeightExceeded();
+	void mergeTrees(mangoTree, mangoTree);
 
 
-	private:
-
-		void increaseCounter();
-		void decreaseCounter();
-		int mangoCounter;
-		
 };

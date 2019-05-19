@@ -1,119 +1,226 @@
 #include "pch.h"
 #include "mangoTree.h"
 
-mangoTree::mangoTree() {
-	
-	head = nullptr;
-	tail = nullptr;
-	mangoCounter = 0;
 
+
+mangoTree::mangoTree()
+{
+	head = NULL;
+	tail = NULL;
+	counter = 0;
 }
 
-int mangoTree::getMangoCounter() {
-	
-	return mangoCounter;
 
+mangoTree::~mangoTree()
+{
 }
 
-void mangoTree::increaseCounter() {
-	this->mangoCounter++;
-}
 
-void mangoTree::decreaseCounter() {
-	this->mangoCounter--;
-}
-
-int mangoTree::addMangoFruit(mangoFruit *m) {
-	
-	if (mangoCounter == 0) {
-		head = m;
-		tail = m;
+int mangoTree::addMango(mangoFruit *mango)
+{
+	if (head == 0)
+	{
+		head = mango;
+		tail = mango;
 	}
-	else {
-		tail->next = m;
-		m->prev = tail;
-		tail = m;
+	else
+	{
+		tail->next = mango;
+		mango->prev = this->tail;
+		tail = mango;
 	}
+
 	increaseCounter();
-	return 0;
+	return 5;
+
+
 }
 
-int mangoTree::insertMangoFruit(mangoFruit *m, int position) {
-	if (position > (this->getMangoCounter() + 1)) {
-		return -1;
+int mangoTree::insertMango(mangoFruit *mango, int pos)
+{
 
+
+	if (pos > getCounter() + 1)
+	{
+		return -1;
 	}
-	else if (position < 0) {
+	else if (pos < 0)
+	{
 		return -2;
 	}
-	else if (position == (this->getMangoCounter() + 1)) {
-		addMangoFruit(m);
+
+	else if (pos == getCounter() + 1)
+	{
+		addMango(mango);
 		return 0;
 	}
-	else if (position <= getMangoCounter()) {
-		mangoFruit* tmp = head;
+	else if (pos <= getCounter())
+	{
+		mangoFruit *temp = head;
 		int actualPos = 1;
-		while (actualPos < position) {
+		while (actualPos < pos)
+		{
 			actualPos++;
-			tmp = tmp->next;
+			temp = temp->next;
 		}
-		m->prev = tmp->prev;
-		m->next = tmp;
-		m->prev->next = m;
-		tmp->prev = m;
+
+		if (actualPos == pos)
+		{
+
+			mango->prev = NULL;
+			mango->next = temp;
+			temp->prev = mango;
+			head = mango;
+		}
+		else
+		{
+			mango->prev = temp->prev;
+			mango->next = temp;
+			mango->prev->next = mango;
+			temp->prev = mango;
+		}
+
+
+
 		increaseCounter();
 		return 0;
 	}
-	else if (position == 1) {
-
-		mangoFruit *tmp = head;
-
-
-	}
 	return -3;
 }
 
-int mangoTree::deleteMangoFruit(int position) {
-	if (position > this->getMangoCounter()) {
+int mangoTree::deleteMango(int pos)
+{
+	if (pos > this->getCounter())
+	{
 		return -1;
-
 	}
-	else if (position < 0) {
+
+	else if (pos < 0)
+	{
 		return -2;
 	}
-	else if (position <= this->getMangoCounter()) {
-		mangoFruit* tmp = head;
+
+	else if (pos <= this->getCounter())
+	{
+		mangoFruit *temp = this->head;
 		int actualPos = 1;
-		while (actualPos < position) {
+
+		while (actualPos < pos)
+		{
 			actualPos++;
-			tmp = tmp->next;
+			temp = temp->next;
 		}
-		if (tmp == head) {
-			tmp->next->prev = nullptr;
+
+		if (temp == this->head)
+		{
+			if (temp->next)
+			{
+				temp->next->prev = nullptr;
+			}
+
 			head = head->next;
 		}
-		else if (tmp == tail) {
-			tmp->prev->next = nullptr;
+		else if (temp == this->tail)
+		{
+			temp->prev->next = NULL;
 			tail = tail->prev;
 		}
-		else {
-			tmp->prev->next = tmp->next;
-			tmp->next->prev = tmp->prev;
+		else
+		{
+			temp->prev->next = temp->next;
+			temp->next->prev = temp->prev;
 		}
-		delete tmp;
+
+		delete temp;
 		decreaseCounter();
 		return 0;
+
 	}
-	return -3;
 }
 
-void mangoTree::printMangoWeight() {
-
+void mangoTree::printMangoTree()
+{
 	mangoFruit *temp = new mangoFruit;
-	temp = head;
-	while (temp != nullptr) {
-		cout << temp->getWeight() << "\t";
+	temp = this->head;
+
+	while (temp != NULL)
+	{
+		cout << temp->getWeight() << endl;
 		temp = temp->next;
 	}
+}
+
+int mangoTree::getCounter()
+{
+	return this->counter;
+}
+
+void mangoTree::increaseCounter()
+{
+	this->counter++;
+}
+
+void mangoTree::decreaseCounter()
+{
+	this->counter--;
+}
+
+double mangoTree::getTotalWeight()
+{
+	double totalWeight = 0.0;
+
+	mangoFruit *mango = new mangoFruit;
+	mango = this->head;
+
+	while (mango != NULL)
+	{
+		totalWeight += mango->getWeight();
+		mango = mango->next;
+	}
+
+	cout << totalWeight << endl;
+
+	return totalWeight;
+
+}
+
+int mangoTree::getFruitQuantity()
+{
+	return getCounter();
+}
+
+
+bool mangoTree::fruitMaxCapacityExceeded()
+{
+	int maxCapacity = 50;
+
+	if (this->getCounter() > maxCapacity)
+	{
+		return true;
+	}
+	else
+		return false;
+
+}
+
+bool mangoTree::treeMaxWeightExceeded()
+{
+	double maxWeight = 500.00;
+
+	if (this->getTotalWeight() > maxWeight)
+	{
+		return true;
+	}
+	else
+		return false;
+
+}
+
+void mangoTree::mergeTrees(mangoTree list1, mangoTree list2) {
+
+	list1.tail->next = list2.head;
+	list2.head->prev = list1.tail;
+
+	printMangoTree();
 
 }
