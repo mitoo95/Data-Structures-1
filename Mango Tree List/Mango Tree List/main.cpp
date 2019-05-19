@@ -219,6 +219,52 @@ void MenuMangoTree()
 						break;
 				}
 			}
+			else if (t2.fruitMaxCapacityExceeded == true) {
+				cout << "Fruit Capacity at MAX" << endl;
+				cout << "Want to delete a fruit?" << endl;
+				cout << "1. Yes" << endl;
+				cout << "2. No" << endl;
+				int op = 0;
+				cin >> op;
+
+				switch (op) {
+				case 1:
+					cout << "Enter position you want to delete" << endl;
+					cin >> pos;
+					test = t2.deleteMango(pos);
+					if (test == 0)
+					{
+						cout << "Mango successfully deleted" << endl;
+					}
+					break;
+				case 2:
+					t2.printMangoTree();
+					break;
+				}
+			}
+			else if (t2.treeMaxWeightExceeded() == true) {
+				cout << "Fruit Weight at MAX" << endl;
+				cout << "Want to delete a fruit?" << endl;
+				cout << "1. Yes" << endl;
+				cout << "2. No" << endl;
+				int op = 0;
+				cin >> op;
+
+				switch (op) {
+				case 1:
+					cout << "Enter position you want to delete" << endl;
+					cin >> pos;
+					test = t2.deleteMango(pos);
+					if (test == 0)
+					{
+						cout << "Mango successfully deleted" << endl;
+					}
+					break;
+				case 2:
+					t2.printMangoTree();
+					break;
+				}
+			}
 			else {
 				cout << "Printing Merge Lists" << endl;
 			}
