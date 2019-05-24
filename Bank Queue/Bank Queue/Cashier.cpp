@@ -31,22 +31,71 @@ void Cashier::decreaseCounter() {
 
 int Cashier::Enqueue(Customer *c) {
 
-	if (isEmpty()) {
-
+	if (isEmpty() == true) {
+		
 		head = c;
 		tail = c;
 
 	}
 	else {
 
-		tail->next = c;
-		tail = c;
-		c->next = nullptr;
+		//int typeACounter = 0;
 
+		Customer *temp = head;
+		Customer *temp2 = new Customer();
+
+		//if priorityAccess is A
+		if (c->getPriorityTicket() == 'A'){
+
+			//if the head is anything other than A
+			if (temp->getPriorityTicket() != 'A') {
+
+				head = c;
+				c->next = temp;
+				return 1;
+
+			}
+			//if head is A and need to insert another A
+			else if (temp->getPriorityTicket() == 'A') {
+
+				while (temp->next->getPriorityTicket() == 'A') {
+					temp = temp->next;
+
+				}
+				c->next = temp->next;
+				temp->next = c;
+				return 1;
+
+			}
+		}
+		//Enqueuing an element B
+		else if (c->getPriorityTicket() == 'B') {
+
+			tail->next = c;
+			tail = c;
+
+		}
+		//if we want to insert a Third priority [C] after 3 customers or after every A
+		else if (c->getPriorityTicket() == 'C') {
+
+
+
+		}
+		//if we insert an Element D or better known as a A.5
+		else if (c->getPriorityTicket() == 'D') {
+
+			while (temp->getPriorityTicket() == 'A') {
+				temp2 = temp;
+				temp = temp->next;
+			}
+
+			temp2->next = c;
+			c->next = temp;
+
+		}
 	}
-	increaseCounter();
-	return 0;
 
+	return 1;
 }
 
 int Cashier::Dequeue() {

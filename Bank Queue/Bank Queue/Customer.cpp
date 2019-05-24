@@ -7,14 +7,17 @@
 Customer::Customer() {
 
 	setIdNumber(0);
+	setOperationType(deposit);
+	setPriorityTicket('\0');
 	next = nullptr;
 
 }
 
-Customer::Customer(int t, opType op) {
+Customer::Customer(int t, opType op, char pa) {
 
 	setIdNumber(t);
 	setOperationType(op);
+	setPriorityTicket(pa);
 	next = nullptr;
 
 }
@@ -60,5 +63,17 @@ void Customer::setOperationType(opType ot) {
 		operation = "Query";
 
 	}
+
+}
+
+void Customer::setPriorityTicket(char c) {
+
+	priority = c;
+
+}
+
+char Customer::getPriorityTicket() {
+
+	return priority;
 
 }

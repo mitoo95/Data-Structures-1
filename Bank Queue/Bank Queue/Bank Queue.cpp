@@ -12,7 +12,6 @@ int main() {
 	bool exit = false;
 	Cashier cm;
 	int op = 0, test = 0, id = 0;
-	opType operation = deposit;
 
 	while (!exit) {
 
@@ -28,7 +27,9 @@ int main() {
 
 			case 1: {
 
+				system("cls");
 				cout << "-> Enqueue Customer <-" << endl;
+				opType operation = deposit;
 				cout << "Insert Customer's ID: ";
 				cin >> id;
 
@@ -44,8 +45,8 @@ int main() {
 			break;
 			case 2: {
 
+				system("cls");
 				cout << "-> Dequeue Customer <-";
-
 				test = cm.Dequeue();
 
 				if (test == 0) {
@@ -57,6 +58,8 @@ int main() {
 			break;
 			case 3:
 
+				system("cls");
+				cout << "-> Queue <-" << endl;
 				cm.print();
 				break;
 
