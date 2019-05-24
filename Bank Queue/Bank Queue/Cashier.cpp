@@ -83,14 +83,25 @@ int Cashier::Enqueue(Customer *c) {
 		}
 		//if we insert an Element D or better known as a A.5
 		else if (c->getPriorityTicket() == 'D') {
+			if (temp->getPriorityTicket() != 'A' && temp->getPriorityTicket() != 'D') {
 
-			while (temp->getPriorityTicket() == 'A') {
-				temp2 = temp;
-				temp = temp->next;
+				head = c;
+				c->next = temp;
+				return 1;
+
 			}
+			else if (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') {
 
-			temp2->next = c;
-			c->next = temp;
+				while (temp->next->getPriorityTicket() == 'A' || temp->next->getPriorityTicket() == 'D') {
+					
+					temp = temp->next;
+
+				}
+				c->next = temp->next;
+				temp->next = c;
+				return 1;
+
+			}
 
 		}
 	}
