@@ -2,8 +2,6 @@
 #include <iostream>
 #include "Cashier.h"
 #include "Customer.h"
-/*#include <cstdlib>
-#include <ctime>*/
 
 using namespace std;
 
@@ -12,6 +10,7 @@ int main() {
 	bool exit = false;
 	Cashier cm;
 	int op = 0, test = 0, id = 0;
+	char pA = '\0';
 
 	while (!exit) {
 
@@ -32,8 +31,10 @@ int main() {
 				opType operation = deposit;
 				cout << "Insert Customer's ID: ";
 				cin >> id;
+				cout << "Insert Priority Access: (A, B, C, D) ";
+				cin >> pA;
 
-				Customer *cEnqueue = new Customer(id, operation);
+				Customer *cEnqueue = new Customer(id, operation, pA);
 				test = cm.Enqueue(cEnqueue);
 
 				if (test == 0) {

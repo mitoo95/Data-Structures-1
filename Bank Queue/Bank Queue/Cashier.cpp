@@ -35,6 +35,7 @@ int Cashier::Enqueue(Customer *c) {
 		
 		head = c;
 		tail = c;
+		c->next = nullptr;
 
 	}
 	else {
@@ -52,19 +53,30 @@ int Cashier::Enqueue(Customer *c) {
 
 				head = c;
 				c->next = temp;
+				
+				return 1;
+
+			}
+			else if (temp->getPriorityTicket() == 'A' && temp->next == nullptr) {
+
+				temp->next = c;
+				c->next = nullptr;
+				tail = c;
 				return 1;
 
 			}
 			//if head is A and need to insert another A
 			else if (temp->getPriorityTicket() == 'A') {
 
-				while (temp->next->getPriorityTicket() == 'A') {
+				while (temp->getPriorityTicket() == 'A' && temp->next != nullptr && temp->next->getPriorityTicket() == 'A') {
+					
 					temp = temp->next;
 
 				}
 				c->next = temp->next;
 				temp->next = c;
 				return 1;
+				
 
 			}
 		}
@@ -92,7 +104,7 @@ int Cashier::Enqueue(Customer *c) {
 			}
 			else if (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') {
 
-				while (temp->next->getPriorityTicket() == 'A' || temp->next->getPriorityTicket() == 'D') {
+				while (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') {
 					
 					temp = temp->next;
 
@@ -135,7 +147,7 @@ int Cashier::Dequeue() {
 
 bool Cashier::isEmpty() {
 
-	if (counter == 0) {
+	if (head == nullptr && tail == nullptr) {
 		return true;
 	}
 	else {
@@ -156,10 +168,11 @@ void Cashier::print() {
 	}
 	else {
 
-		while (temp != NULL) {
+		while (temp != nullptr) {
 
 			cout << temp->getIdNumber() << endl;
 			cout << temp->getOperationType() << endl;
+			cout << temp->getPriorityTicket() << endl;
 			temp = temp->next;
 		}
 

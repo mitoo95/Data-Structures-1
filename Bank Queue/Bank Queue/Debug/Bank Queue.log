@@ -1,6 +1,2 @@
-﻿  Bank Queue.cpp
-  Cashier.cpp
-  Customer.cpp
-c:\users\mitoo\desktop\ed 1 q2 2019\bank queue\bank queue\customer.cpp(43): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
+﻿  Cashier.cpp
   Bank Queue.vcxproj -> C:\Users\mitoo\Desktop\ED 1 Q2 2019\Bank Queue\Debug\Bank Queue.exe
