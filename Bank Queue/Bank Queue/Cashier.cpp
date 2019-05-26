@@ -102,9 +102,18 @@ int Cashier::Enqueue(Customer *c) {
 				return 1;
 
 			}
+			else if ((temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') && temp->next == nullptr) {
+
+				temp->next = c;
+				c->next = nullptr;
+				tail = c;
+				return 1;
+
+			}
 			else if (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') {
 
-				while (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') {
+				while ((temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D') && temp->next != nullptr && 
+					(temp->next->getPriorityTicket() == 'A' || temp->next->getPriorityTicket() == 'D')) {
 					
 					temp = temp->next;
 
