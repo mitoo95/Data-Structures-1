@@ -81,22 +81,26 @@ int Cashier::Enqueue(Customer *c) {
 			return 1;
 
 		}
-		//if we want to insert a Third priority [C] after 3 customers or after every A
+		//if we want to insert a Third priority [C] after 3 customers or after every A and D
 		else if (c->getPriorityTicket() == 'C') {
 
 			int nCounter = 1;
 			
-			if (head->getPriorityTicket() == 'A') {
+			if (head->getPriorityTicket() == 'A' || head->getPriorityTicket() == 'D' || head->getPriorityTicket() == 'C') {
 				
-				while (temp->getPriorityTicket() == 'A' && temp->next != nullptr && temp->next->getPriorityTicket() == 'A') {
+				while ((temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D' || head->getPriorityTicket() == 'C') 
+					&& temp->next != nullptr && (temp->next->getPriorityTicket() == 'A' || temp->next->getPriorityTicket() == 'D' 
+						|| temp->next->getPriorityTicket() == 'C')) {
+
 					temp = temp->next;
+
 				}
 				c->next = temp->next;
 				temp->next = c;
 				return 1;
 
 			}
-			else if (head->getPriorityTicket() != 'A') {
+			else if (head->getPriorityTicket() == 'B') {
 
 				while (temp->next != nullptr && nCounter != 3) {
 					temp = temp->next;
@@ -157,12 +161,18 @@ int Cashier::Dequeue() {
 	else {
 
 		c = head;
-		cout << "\nDequeing: " << c->getIdNumber() << endl;
-		head = c->next;
-		c->next = nullptr;
-		delete c;
+		if (c) {
+			cout << "\nDequeing: " << c->getIdNumber() << endl;
+			head = c->next;
+			c->next = nullptr;
+			delete c;
 
-		decreaseCounter();
+		}
+		else {
+
+			cout << "Queue is empty!" << endl;
+
+		}
 		return 0;
 
 	}
