@@ -84,11 +84,11 @@ int Cashier::Enqueue(Customer *c) {
 		//if we want to insert a Third priority [C] after 3 customers or after every A and D
 		else if (c->getPriorityTicket() == 'C') {
 
-			int nCounter = 1;
+			int bCounter = 0;
 			
-			if (head->getPriorityTicket() == 'A' || head->getPriorityTicket() == 'D' || head->getPriorityTicket() == 'C') {
+			if (temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D' || temp->getPriorityTicket() == 'C') {
 				
-				while ((temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D' || head->getPriorityTicket() == 'C') 
+				while ((temp->getPriorityTicket() == 'A' || temp->getPriorityTicket() == 'D' || temp->getPriorityTicket() == 'C') 
 					&& temp->next != nullptr && (temp->next->getPriorityTicket() == 'A' || temp->next->getPriorityTicket() == 'D' 
 						|| temp->next->getPriorityTicket() == 'C')) {
 
@@ -102,19 +102,8 @@ int Cashier::Enqueue(Customer *c) {
 			}
 			else if (head->getPriorityTicket() == 'B') {
 
-				while (temp->next != nullptr && nCounter != 3) {
-					temp = temp->next;
-					nCounter++;
-				}
-				if (nCounter == 3) {
-					c->next = temp->next;
-					temp->next = c;
-				}
-				else if (temp->next->getPriorityTicket() == 'C' && c->getPriorityTicket() == 'C') {
-					Customer *temp2 = temp->next;
-					c->next = temp2->next;
-					temp2->next = c;
-				}
+				head = c;
+				c->next = temp;
 
 				return 1;
 			}
