@@ -127,6 +127,13 @@ void Graph::adjList() {
 	}
 }
 
+void imprimirMatrizAdyacencia() {
+	
+	Vertex *vertAux;
+	Edge * edgeAux;
+
+}
+
 void Graph::Nullify() {
 
 	Vertex *aux;

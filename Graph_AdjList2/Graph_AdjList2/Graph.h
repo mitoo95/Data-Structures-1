@@ -20,6 +20,7 @@ class Graph {
 		void addEdge(Vertex *origin, Vertex *dest, int weight);
 		void addVertex(string name);
 		void adjList();
+		void adjMatrix();
 		void deleteEdge(Vertex *origin, Vertex *dest);
 		void Nullify();
 		void deleteVertex(Vertex *vert);
